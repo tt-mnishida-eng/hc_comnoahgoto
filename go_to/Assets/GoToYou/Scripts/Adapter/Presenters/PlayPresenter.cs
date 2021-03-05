@@ -1,5 +1,6 @@
 using Common.Adapter.Presenters.Interfaces;
 using Common.Domain.UseCases;
+using GoToYou.Adapter.Presenters.Interfaces;
 using GoToYou.Domain.UseCases;
 using Nimitools.CA.Adapter;
 using UniRx;
@@ -10,11 +11,12 @@ namespace GoToYou.Adapter.Presenters
     {
         PlayUseCase useCase;
 
-        ICommonPlayView view;
+        IPlayView view;
 
-        public PlayPresenter(PlayUseCase useCase, ICommonPlayView view)
+        public PlayPresenter(PlayUseCase useCase, IPlayView view)
         {
             this.useCase = useCase;
+            this.view = view;
             Bind();
         }
 

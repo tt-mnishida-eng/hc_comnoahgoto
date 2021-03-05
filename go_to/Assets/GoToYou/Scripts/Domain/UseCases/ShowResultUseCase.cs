@@ -10,9 +10,9 @@ namespace GoToYou.Domain.UseCases
     {
         Subject<ResultSignal> sendViewDataSubject = new Subject<ResultSignal>();
         public IObservable<ResultSignal> OnSendViewData => sendViewDataSubject;
-        IRepository repository;
+        IMainRepository repository;
 
-        public void SetRepository(IRepository repository)
+        public void SetRepository(IMainRepository repository)
         {
             this.repository = repository;
         }

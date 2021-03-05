@@ -1,8 +1,10 @@
 using Common.Adapter.Presenters.Interfaces;
 using Common.Domain.UseCases;
+using GoToYou.Adapter.Presenters.Interfaces;
 using GoToYou.Domain.UseCases;
 using Nimitools.CA.Adapter;
 using UniRx;
+using UnityEngine.PlayerLoop;
 
 namespace GoToYou.Adapter.Presenters
 {
@@ -10,11 +12,12 @@ namespace GoToYou.Adapter.Presenters
     {
         ShowResultUseCase useCase;
 
-        ICommonResultView view;
+        IResultView view;
 
-        public ResultPresenter(ShowResultUseCase useCase, ICommonResultView view)
+        public ResultPresenter(ShowResultUseCase useCase, IResultView view)
         {
             this.useCase = useCase;
+            this.view = view;
             Bind();
         }
 

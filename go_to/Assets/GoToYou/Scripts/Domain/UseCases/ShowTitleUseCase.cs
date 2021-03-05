@@ -1,4 +1,5 @@
 using System;
+using GoToYou.Data;
 using GoToYou.Data.Signals;
 using Nimitools.CA.Domain;
 using UniRx;
@@ -9,9 +10,9 @@ namespace GoToYou.Domain.UseCases
     {
         Subject<TitleSignal> sendViewDataSubject = new Subject<TitleSignal>();
         public IObservable<TitleSignal> OnSendViewData => sendViewDataSubject;
-        IRepository repository;
+        IMainRepository repository;
 
-        public void SetRepository(IRepository repository)
+        public void SetRepository(IMainRepository repository)
         {
             this.repository = repository;
         }
@@ -20,6 +21,12 @@ namespace GoToYou.Domain.UseCases
         {
             base.Begin();
             sendViewDataSubject.OnNext(null);
+        }
+
+        public void TapStart()
+        {
+            base.End();
+            SendUseCaseAtIndex((int) UseCaseNames.Play);
         }
     }
 }
