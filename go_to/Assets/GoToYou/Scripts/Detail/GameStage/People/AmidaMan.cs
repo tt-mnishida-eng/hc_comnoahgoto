@@ -1,11 +1,14 @@
 using System;
 using Common.Actor;
+using GoToYou.Detail.GameStage.Line;
 using UnityEngine;
 
 namespace GoToYou.Detail.GameStage.People
 {
     public class AmidaMan : Actor
     {
+        AmidaNode currentNode = null;
+
         enum States
         {
             Idle = 0,
@@ -44,6 +47,8 @@ namespace GoToYou.Detail.GameStage.People
         void FinishMoving()
         {
             Debug.Log("FinishMoving");
+            currentNode.TriggerEndCross();
+            currentNode = null;
             if (CastRayToSide())
             {
             }
@@ -62,11 +67,14 @@ namespace GoToYou.Detail.GameStage.People
             var direction = Vector3.right;
             var ray = new Ray(from, direction);
             RaycastHit hit;
-            float distance = 5f;
+            float distance = 7f;
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
+                currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
+                currentNode.TriggerStartCross();
+
                 targetPosition = hit.collider.transform.position;
-                targetPosition.y = 0;
+                // targetPosition.y = 0
                 transform.LookAt(targetPosition);
                 Walk();
                 return true;
@@ -80,8 +88,10 @@ namespace GoToYou.Detail.GameStage.People
 
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
+                currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
+                currentNode.TriggerStartCross();
                 targetPosition = hit.collider.transform.position;
-                targetPosition.y = 0;
+                // targetPosition.y = 0;
                 transform.LookAt(targetPosition);
                 Walk();
                 return true;
@@ -101,8 +111,10 @@ namespace GoToYou.Detail.GameStage.People
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
                 Debug.Log(hit.collider.name);
+                currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
+                currentNode.TriggerStartCross();
                 targetPosition = hit.collider.transform.position;
-                targetPosition.y = 0;
+                // targetPosition.y = 0;
                 transform.LookAt(targetPosition);
                 Walk();
                 return true;

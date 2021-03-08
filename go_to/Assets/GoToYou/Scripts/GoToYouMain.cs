@@ -12,6 +12,7 @@ namespace GoToYou
         [SerializeField] MainInstaller installer;
         [SerializeField] UseCaseConductor conductor;
 
+
         void Start()
         {
             QualitySettings.vSyncCount = 0;
