@@ -1,6 +1,7 @@
 using System;
 using Common.Extension;
 using GoToYou.Adapter.Presenters.Interfaces;
+using GoToYou.Detail.GameStage;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ namespace GoToYou.Detail.Views
         Subject<Unit> failSubject = new Subject<Unit>();
         public IObservable<Unit> OnFail => failSubject;
 
+        [SerializeField] GoToYouStage goToYouStage;
+
         void Start()
         {
             retryButton.onClick.AddListener(Retry);
@@ -28,6 +31,7 @@ namespace GoToYou.Detail.Views
         public void Begin()
         {
             this.SetActive(true);
+            goToYouStage.WaitDraw();
         }
 
         public void End()
