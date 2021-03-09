@@ -1,4 +1,5 @@
 using System;
+using GoToYou.Detail.GameStage;
 using Nimitools.CA.Adapter;
 using UniRx;
 
@@ -6,9 +7,7 @@ namespace GoToYou.Adapter.Presenters.Interfaces
 {
     public interface IPlayView : IViewPort
     {
-        IObservable<Unit> OnFail { get; }
-        IObservable<Unit> OnSuccess { get; }
-
+        GoToYouStage GoToYouStage { get; }
         IObservable<Unit> OnRetry { get; }
     }
 }

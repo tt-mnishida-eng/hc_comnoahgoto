@@ -20,7 +20,23 @@ namespace GoToYou.Domain.UseCases
         public override void Begin()
         {
             base.Begin();
-            sendViewDataSubject.OnNext(null);
+            var userEntity = repository.GetUserEntity();
+            var resultSignal = new ResultSignal();
+            resultSignal.IsSuccess = userEntity.IsCurrentStageSuccess;
+            sendViewDataSubject.OnNext(resultSignal);
+        }
+
+        public override void End()
+        {
+            base.End();
+        }
+
+        public void GotoNextStage()
+        {
+        }
+
+        public void Retry()
+        {
         }
     }
 }

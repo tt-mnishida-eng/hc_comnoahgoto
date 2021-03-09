@@ -15,13 +15,10 @@ namespace GoToYou.Detail.Views
         Subject<Unit> retrySubject = new Subject<Unit>();
         public IObservable<Unit> OnRetry => retrySubject;
 
-        Subject<Unit> successSubject = new Subject<Unit>();
-        public IObservable<Unit> OnSuccess => successSubject;
-
-        Subject<Unit> failSubject = new Subject<Unit>();
-        public IObservable<Unit> OnFail => failSubject;
 
         [SerializeField] GoToYouStage goToYouStage;
+
+        public GoToYouStage GoToYouStage => goToYouStage;
 
         void Start()
         {

@@ -1,18 +1,23 @@
 using System;
 using Common.Actor;
 using GoToYou.Detail.GameStage.Line;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace GoToYou.Detail.GameStage.People
 {
     public class AmidaMan : Actor
     {
+        AmidaNode previousNode = null;
         AmidaNode currentNode = null;
 
         enum States
         {
             Idle = 0,
             Walk,
+            Dance,
+            FallBack
         }
 
         States currentState = States.Idle;
@@ -23,6 +28,19 @@ namespace GoToYou.Detail.GameStage.People
         float speed = 5f;
 
         Vector3 targetPosition;
+        [SerializeField] ParticleSystem bloodParticle;
+
+
+        Subject<Unit> successSubject = new Subject<Unit>();
+        public IObservable<Unit> OnSuccess => successSubject;
+        Subject<Unit> failureSubject = new Subject<Unit>();
+        public IObservable<Unit> OnFail => failureSubject;
+
+        void Awake()
+        {
+            bloodParticle.Stop();
+            bloodParticle.gameObject.SetActive(false);
+        }
 
         protected override void Start()
         {
@@ -47,7 +65,19 @@ namespace GoToYou.Detail.GameStage.People
         void FinishMoving()
         {
             Debug.Log("FinishMoving");
-            currentNode.TriggerEndCross();
+            if (currentNode.HorizonLineIndex < 0)
+            {
+                successSubject.OnNext(Unit.Default);
+                Dance();
+                return;
+            }
+
+            if (previousNode != null && previousNode.HorizonLineIndex == currentNode.HorizonLineIndex)
+            {
+                currentNode.TriggerEndCross();
+            }
+
+            previousNode = currentNode;
             currentNode = null;
             if (CastRayToSide())
             {
@@ -132,6 +162,7 @@ namespace GoToYou.Detail.GameStage.People
 
         public void Dance()
         {
+            currentState = States.Dance;
             Play(AmidaManAnimetorParameters.Dance);
         }
 
@@ -143,6 +174,9 @@ namespace GoToYou.Detail.GameStage.People
 
         public void FallBack()
         {
+            bloodParticle.gameObject.SetActive(true);
+            bloodParticle.Play();
+            currentState = States.FallBack;
             Play(AmidaManAnimetorParameters.FallBack);
         }
     }

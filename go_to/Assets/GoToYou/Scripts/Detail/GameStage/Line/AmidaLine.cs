@@ -32,41 +32,22 @@ namespace GoToYou.Detail.GameStage.Line
         [SerializeField] AmidaNode endNode;
 
 
-        Subject<Unit> drawFinishedSubject = new Subject<Unit>();
-        public IObservable<Unit> OnDrawFinished => drawFinishedSubject;
+        Subject<Vector3> drawFinishedSubject = new Subject<Vector3>();
+        public IObservable<Vector3> OnDrawFinished => drawFinishedSubject;
 
         public void Initialize(int lineIndex, AmidaLineType lineType)
         {
             lineInfo.LineType = lineType;
             lineInfo.LineIndex = lineIndex;
-            beginNode.IsCrossEndNode = false;
-            beginNode.OnStartCross.Subscribe(StartCross);
             beginNode.OnEndCross.Subscribe(EndCross);
 
-            endNode.IsCrossEndNode = false;
-            endNode.OnStartCross.Subscribe(StartCross);
             endNode.OnEndCross.Subscribe(EndCross);
         }
 
-        public void StartCross(AmidaNode node)
-        {
-            if (!beginNode.IsCrossEndNode && !endNode.IsCrossEndNode)
-            {
-                if (beginNode.VerticalLineIndex == node.VerticalLineIndex)
-                {
-                    endNode.IsCrossEndNode = true;
-                }
-                else
-                {
-                    beginNode.IsCrossEndNode = true;
-                }
-            }
-        }
 
-        public void EndCross(AmidaNode node)
+        void EndCross(AmidaNode node)
         {
-            if (node.IsCrossEndNode)
-                SetAmidaNodeCollidersEnabled(false);
+            SetAmidaNodeCollidersEnabled(false);
         }
 
         public void SetBeginNode(int verticalIndex, int horizonIndex)
@@ -108,7 +89,7 @@ namespace GoToYou.Detail.GameStage.Line
                             {
                                 SetEndNode(amidaInfo.LineIndex, LineIndex);
                                 SetAmidaNodeCollidersEnabled(true);
-                                drawFinishedSubject.OnNext(Unit.Default);
+                                drawFinishedSubject.OnNext(amidaInfo.AmidaLine.transform.position);
                             }
                         }
                     }

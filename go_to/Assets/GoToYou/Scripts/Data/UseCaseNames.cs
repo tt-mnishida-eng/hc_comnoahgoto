@@ -2,7 +2,8 @@ namespace GoToYou.Data
 {
     public enum UseCaseNames
     {
-        ShowTitle = 0,
+        Preparation = 0,
+        ShowTitle,
         Play,
         ShowResult
     }

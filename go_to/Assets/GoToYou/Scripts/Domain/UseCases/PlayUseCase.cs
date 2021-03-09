@@ -25,12 +25,16 @@ namespace GoToYou.Domain.UseCases
 
         public void Success()
         {
+            var userEntity = repository.GetUserEntity();
+            userEntity.IsCurrentStageSuccess = true;
             base.End();
             SendUseCaseAtIndex((int) UseCaseNames.ShowResult);
         }
 
         public void Fail()
         {
+            var userEntity = repository.GetUserEntity();
+            userEntity.IsCurrentStageSuccess = false;
             base.End();
             SendUseCaseAtIndex((int) UseCaseNames.ShowResult);
         }

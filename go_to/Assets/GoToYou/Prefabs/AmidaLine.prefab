@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 792671168408263448}
   - component: {fileID: 792671168408263449}
   - component: {fileID: 792671168408263454}
+  - component: {fileID: 3870426235579026930}
   m_Layer: 9
   m_Name: Line
   m_TagString: Untagged
@@ -238,6 +239,19 @@ MonoBehaviour:
   amidaLine: {fileID: 792671167983030168}
   lineType: 0
   lineIndex: 0
+--- !u!65 &3870426235579026930
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792671168408263452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &792671168859530016
 GameObject:
   m_ObjectHideFlags: 0

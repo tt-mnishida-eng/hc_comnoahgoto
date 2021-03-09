@@ -20,7 +20,7 @@ namespace GoToYou
             installer.Install();
 
             var signal = new UsecaseSignal();
-            signal.UseCaseEnum = (int) UseCaseNames.ShowTitle;
+            signal.UseCaseEnum = (int) UseCaseNames.Preparation;
             conductor.Launch(signal);
         }
     }

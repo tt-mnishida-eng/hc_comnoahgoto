@@ -1,5 +1,3 @@
-using Common.Adapter.Presenters.Interfaces;
-using Common.Domain.UseCases;
 using GoToYou.Adapter.Presenters.Interfaces;
 using GoToYou.Domain.UseCases;
 using Nimitools.CA.Adapter;
@@ -7,13 +5,13 @@ using UniRx;
 
 namespace GoToYou.Adapter.Presenters
 {
-    public class PlayPresenter : PresenterBase
+    public class PrepatationPresenter : PresenterBase
     {
-        PlayUseCase useCase;
+        PreparationUseCase useCase;
 
-        IPlayView view;
+        IPreparationView view;
 
-        public PlayPresenter(PlayUseCase useCase, IPlayView view)
+        public PrepatationPresenter(PreparationUseCase useCase, IPreparationView view)
         {
             this.useCase = useCase;
             this.view = view;
@@ -23,10 +21,7 @@ namespace GoToYou.Adapter.Presenters
         override protected void Bind()
         {
             useCase.OnBegin.Subscribe(x => view.Begin());
-
             useCase.OnEnd.Subscribe(x => view.End());
-            view.GoToYouStage.OnSuccess.Subscribe(x => useCase.Success());
-            view.GoToYouStage.OnFail.Subscribe(x => useCase.Fail());
         }
     }
 }

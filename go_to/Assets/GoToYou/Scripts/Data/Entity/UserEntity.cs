@@ -13,6 +13,8 @@ namespace GoToYou.Data.Entity
 
         [SerializeField] int progress;
         public int Progress => this.progress;
-        
+
+
+        public bool IsCurrentStageSuccess { get; set; } = false;
     }
 }

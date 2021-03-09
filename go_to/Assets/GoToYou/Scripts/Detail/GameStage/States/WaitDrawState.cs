@@ -39,7 +39,7 @@ namespace GoToYou.Detail.GameStage.States
             var inputMousePos = Input.mousePosition;
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(inputMousePos);
+                Ray ray = currentCamera.ScreenPointToRay(inputMousePos);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, rayDepth, lineLayerMask))
                 {
@@ -54,7 +54,7 @@ namespace GoToYou.Detail.GameStage.States
                                     new Vector3(inputMousePos.x, inputMousePos.z, rayDepth));
                             currentAmidaLine = Context.AddHorizonLine(amidaInfo.LineIndex);
 
-                            subscribe = currentAmidaLine.OnDrawFinished.Subscribe(x => FinishDraw());
+                            subscribe = currentAmidaLine.OnDrawFinished.Subscribe(x => FinishDraw(x));
                             currentAmidaLine.Length = 0;
                             var vAmida = amidaInfo.AmidaLine;
                             currentAmidaLine.transform.position = new Vector3(vAmida.transform.position.x,
@@ -75,7 +75,6 @@ namespace GoToYou.Detail.GameStage.States
                     var currentPosition = currentCamera.ScreenToWorldPoint(
                         new Vector3(inputMousePos.x, inputMousePos.z, rayDepth));
                     var diff = mouseDownPosition - currentPosition;
-                    Debug.Log(diff);
 
                     currentAmidaLine.transform.localEulerAngles = new Vector3(0, 90, 0);
                     currentAmidaLine.Length = diff.x;
@@ -89,8 +88,10 @@ namespace GoToYou.Detail.GameStage.States
             }
         }
 
-        void FinishDraw()
+        void FinishDraw(Vector3 endlinePos)
         {
+            var diff = currentAmidaLine.transform.position - endlinePos;
+            currentAmidaLine.Length = diff.x;
             currentAmidaLine = null;
             subscribe.Dispose();
             Context.StartAmida();

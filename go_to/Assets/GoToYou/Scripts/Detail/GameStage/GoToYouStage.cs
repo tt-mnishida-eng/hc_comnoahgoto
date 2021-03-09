@@ -3,29 +3,38 @@ using System.Collections.Generic;
 using GoToYou.Detail.GameStage.Line;
 using GoToYou.Detail.GameStage.People;
 using GoToYou.Detail.GameStage.States;
+using UniRx;
 using UnityEngine;
 
 namespace GoToYou.Detail.GameStage
 {
     public class GoToYouStage : MonoBehaviour
     {
+        [SerializeField] StageContainer stageContainer;
+
         [SerializeField] AmidaMan amidaMan;
         public AmidaMan AmidaMan => amidaMan;
         FSM<GoToYouStage, GoToYouStates> fsm = new FSM<GoToYouStage, GoToYouStates>();
 
         [SerializeField] GameObject verticalLineContainer;
         public GameObject VerticalLineContainer => verticalLineContainer;
+
         List<AmidaLine> verticalLines = new List<AmidaLine>();
 
-        [SerializeField] GameObject horizonLineContainer;
         List<AmidaLine> horizonLines = new List<AmidaLine>();
 
-        [SerializeField] AmidaLine amidaLinePrefab;
+        [SerializeField] GameObject horizonLineContainer;
         public GameObject HorizonLineContainer => horizonLineContainer;
+
+        [SerializeField] AmidaLine amidaLinePrefab;
+        Subject<Unit> successSubject = new Subject<Unit>();
+        public IObservable<Unit> OnSuccess => successSubject;
+
+        Subject<Unit> failSubject = new Subject<Unit>();
+        public IObservable<Unit> OnFail => failSubject;
 
         void Start()
         {
-            Initialize();
         }
 
         void Update()
@@ -33,7 +42,7 @@ namespace GoToYou.Detail.GameStage
             fsm.Update();
         }
 
-        void Initialize()
+        public void Initialize(int currentStageIndex)
         {
             var waitdrawState = new WaitDrawState(this);
             fsm.AddState(GoToYouStates.WaitDraw, waitdrawState, true);
@@ -97,11 +106,13 @@ namespace GoToYou.Detail.GameStage
         public void Fail()
         {
             fsm.Send(GoToYouStates.Failure);
+            failSubject.OnNext(Unit.Default);
         }
 
         public void Success()
         {
             fsm.Send(GoToYouStates.Success);
+            successSubject.OnNext(Unit.Default);
         }
     }
 }

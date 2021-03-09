@@ -6,7 +6,6 @@ namespace GoToYou.Detail.GameStage.Line
 {
     public class AmidaNode : MonoBehaviour
     {
-        public bool IsCrossEndNode { get; set; } = false;
         [SerializeField] int verticalLineIndex = -1;
 
         public int VerticalLineIndex

@@ -2,6 +2,7 @@ using System;
 using GoToYou.Adapter.Presenters;
 using GoToYou.Adapter.Repositories;
 using GoToYou.Data;
+using GoToYou.Detail.DataStores;
 using GoToYou.Detail.Views;
 using GoToYou.Domain.UseCases;
 using Nimitools.CA.Detail;
@@ -11,17 +12,24 @@ namespace GoToYou.Installer
 {
     public class MainInstaller : MonoBehaviour
     {
+        [SerializeField] PreparationView preparationView;
         [SerializeField] TitleView titleView;
         [SerializeField] PlayView playView;
         [SerializeField] ResultView resultView;
 
+        [SerializeField] MainDataStore dataStore;
         [SerializeField] UseCaseConductor useCaseConductor;
 
         public void Install()
         {
             useCaseConductor.Initialize();
 
-            var mainRepository = new MainRepository();
+            var mainRepository = new MainRepository(dataStore);
+
+            var preparationUS = new PreparationUseCase();
+            preparationUS.SetRepository(mainRepository);
+            var preparationPresenter = new PrepatationPresenter(preparationUS, preparationView);
+            useCaseConductor.AddUseCase<UseCaseNames>(UseCaseNames.Preparation, preparationUS);
 
             var titleUS = new ShowTitleUseCase();
             titleUS.SetRepository(mainRepository);
@@ -34,7 +42,7 @@ namespace GoToYou.Installer
             useCaseConductor.AddUseCase<UseCaseNames>(UseCaseNames.Play, playUS);
 
             var resultUS = new ShowResultUseCase();
-            playUS.SetRepository(mainRepository);
+            resultUS.SetRepository(mainRepository);
             var resultPresenter = new ResultPresenter(resultUS, resultView);
             useCaseConductor.AddUseCase<UseCaseNames>(UseCaseNames.ShowResult, resultUS);
         }
