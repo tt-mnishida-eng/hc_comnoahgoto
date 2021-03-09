@@ -27,14 +27,23 @@ namespace GoToYou.Detail.GameStage
         public GameObject HorizonLineContainer => horizonLineContainer;
 
         [SerializeField] AmidaLine amidaLinePrefab;
+
         Subject<Unit> successSubject = new Subject<Unit>();
         public IObservable<Unit> OnSuccess => successSubject;
 
         Subject<Unit> failSubject = new Subject<Unit>();
         public IObservable<Unit> OnFail => failSubject;
 
+        Subject<Unit> finishPreparationSubject = new Subject<Unit>();
+        public IObservable<Unit> OnFinishPreparation => finishPreparationSubject;
+
         void Start()
         {
+        }
+
+        public void FinishPreparation()
+        {
+            finishPreparationSubject.OnNext(Unit.Default);
         }
 
         void Update()
@@ -42,8 +51,9 @@ namespace GoToYou.Detail.GameStage
             fsm.Update();
         }
 
-        public void Initialize(int currentStageIndex)
+        public void Initialize(int progress)
         {
+            stageContainer.SetProgress(progress);
             var waitdrawState = new WaitDrawState(this);
             fsm.AddState(GoToYouStates.WaitDraw, waitdrawState, true);
 

@@ -13605,7 +13605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff37c2f066f42a3837f940e47c6cd91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageContainer: {fileID: 0}
+  stageContainer: {fileID: 1108876039}
   amidaMan: {fileID: 1427369171}
   verticalLineContainer: {fileID: 2043998900}
   horizonLineContainer: {fileID: 1352875132}
@@ -15384,7 +15384,7 @@ GameObject:
   - component: {fileID: 1352875133}
   m_Layer: 0
   m_Name: HorizonLineContainer
-  m_TagString: Untagged
+  m_TagString: HorizonLineContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25519,7 +25519,7 @@ GameObject:
   - component: {fileID: 2043998901}
   m_Layer: 0
   m_Name: VerticalLineContainer
-  m_TagString: Untagged
+  m_TagString: VerticalLineContainer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

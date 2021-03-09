@@ -1,4 +1,5 @@
 using System;
+using GoToYou.Data;
 using GoToYou.Data.Signals;
 using Nimitools.CA.Domain;
 using UniRx;
@@ -19,12 +20,17 @@ namespace GoToYou.Domain.UseCases
         public override void Begin()
         {
             base.Begin();
-            sendViewDataSubject.OnNext(null);
+            var userEntity = repository.GetUserEntity();
+
+            var preparationSignal = new PreparationSignal();
+            preparationSignal.Progress = userEntity.Progress;
+            sendViewDataSubject.OnNext(preparationSignal);
         }
 
         public override void End()
         {
             base.End();
+            SendUseCaseAtIndex((int) UseCaseNames.ShowResult);
         }
     }
 }

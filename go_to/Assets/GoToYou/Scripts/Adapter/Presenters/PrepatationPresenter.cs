@@ -22,6 +22,7 @@ namespace GoToYou.Adapter.Presenters
         {
             useCase.OnBegin.Subscribe(x => view.Begin());
             useCase.OnEnd.Subscribe(x => view.End());
+            useCase.OnSendViewData.Subscribe(x => view.Render(x));
         }
     }
 }

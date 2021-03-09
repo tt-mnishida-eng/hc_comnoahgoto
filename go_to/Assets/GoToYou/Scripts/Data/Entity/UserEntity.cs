@@ -4,14 +4,12 @@ namespace GoToYou.Data.Entity
 {
     public class UserEntity
     {
-        [SerializeField] int userId;
+        [SerializeField] int userId = 0;
 
         public int UserId => userId;
 
-        [SerializeField] int currentStage;
-        public int CurrentStage => this.currentStage;
 
-        [SerializeField] int progress;
+        [SerializeField] int progress = 0;
         public int Progress => this.progress;
 
 

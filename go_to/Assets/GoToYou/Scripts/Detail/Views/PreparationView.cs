@@ -1,7 +1,9 @@
+using System;
 using Common.Extension;
 using GoToYou.Adapter.Presenters.Interfaces;
 using GoToYou.Data.Signals;
 using GoToYou.Detail.GameStage;
+using UniRx;
 using UnityEngine;
 
 namespace GoToYou.Detail.Views
@@ -10,6 +12,7 @@ namespace GoToYou.Detail.Views
     {
         [SerializeField] GoToYouStage goToYouStage;
 
+
         public void Begin()
         {
             this.SetActive(true);
@@ -17,8 +20,9 @@ namespace GoToYou.Detail.Views
 
         public void Render(PreparationSignal signal)
         {
-            goToYouStage.Initialize(signal.CurrentStageIndex);
+            goToYouStage.Initialize(signal.Progress);
         }
+
 
         public void End()
         {
