@@ -12,6 +12,7 @@ namespace GoToYou.Detail.Views
     {
         [SerializeField] GoToYouStage goToYouStage;
 
+        public GoToYouStage GoToYouStage => goToYouStage;
 
         public void Begin()
         {

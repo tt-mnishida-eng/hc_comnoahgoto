@@ -12,6 +12,8 @@ namespace GoToYou.Detail.GameStage.People
         AmidaNode previousNode = null;
         AmidaNode currentNode = null;
 
+        bool isSideMoving = false;
+
         enum States
         {
             Idle = 0,
@@ -65,6 +67,7 @@ namespace GoToYou.Detail.GameStage.People
         void FinishMoving()
         {
             Debug.Log("FinishMoving");
+            isSideMoving = false;
             if (currentNode.HorizonLineIndex < 0)
             {
                 successSubject.OnNext(Unit.Default);
@@ -106,6 +109,7 @@ namespace GoToYou.Detail.GameStage.People
                 targetPosition = hit.collider.transform.position;
                 // targetPosition.y = 0
                 transform.LookAt(targetPosition);
+                isSideMoving = true;
                 Walk();
                 return true;
             }
@@ -123,6 +127,7 @@ namespace GoToYou.Detail.GameStage.People
                 targetPosition = hit.collider.transform.position;
                 // targetPosition.y = 0;
                 transform.LookAt(targetPosition);
+                isSideMoving = true;
                 Walk();
                 return true;
             }
@@ -133,6 +138,7 @@ namespace GoToYou.Detail.GameStage.People
 
         public bool CastRayToForward()
         {
+            if (isSideMoving) return false;
             var from = transform.position;
             var direction = Vector3.back;
             var ray = new Ray(from, direction);

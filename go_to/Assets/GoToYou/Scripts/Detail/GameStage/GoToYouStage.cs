@@ -34,17 +34,13 @@ namespace GoToYou.Detail.GameStage
         Subject<Unit> failSubject = new Subject<Unit>();
         public IObservable<Unit> OnFail => failSubject;
 
-        Subject<Unit> finishPreparationSubject = new Subject<Unit>();
-        public IObservable<Unit> OnFinishPreparation => finishPreparationSubject;
+        Subject<Unit> finishInitializeSubject = new Subject<Unit>();
+        public IObservable<Unit> OnFinishInitialize => finishInitializeSubject;
 
         void Start()
         {
         }
 
-        public void FinishPreparation()
-        {
-            finishPreparationSubject.OnNext(Unit.Default);
-        }
 
         void Update()
         {
@@ -54,6 +50,8 @@ namespace GoToYou.Detail.GameStage
         public void Initialize(int progress)
         {
             stageContainer.SetProgress(progress);
+            verticalLineContainer = stageContainer.CurrentVerticalLineContainer;
+            horizonLineContainer = stageContainer.CurrentHorizonLineContainer;
             var waitdrawState = new WaitDrawState(this);
             fsm.AddState(GoToYouStates.WaitDraw, waitdrawState, true);
 
@@ -89,6 +87,7 @@ namespace GoToYou.Detail.GameStage
             }
 
             fsm.Send(GoToYouStates.WaitDraw);
+            finishInitializeSubject.OnNext(Unit.Default);
         }
 
         public AmidaLine AddHorizonLine(int verticalIndex)

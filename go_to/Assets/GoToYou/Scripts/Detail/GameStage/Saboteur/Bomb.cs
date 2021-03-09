@@ -5,10 +5,13 @@ namespace GoToYou.Detail.GameStage.Saboteur
 {
     public class Bomb : SaboteurBase
     {
+        [SerializeField] ParticleSystem fuseParticle;
         [SerializeField] ParticleSystem bombParticle;
+        MeshRenderer meshRenderer;
 
         void Awake()
         {
+            meshRenderer = GetComponent<MeshRenderer>();
             bombParticle.Stop();
             bombParticle.gameObject.SetActive(false);
         }
@@ -17,6 +20,8 @@ namespace GoToYou.Detail.GameStage.Saboteur
         {
             bombParticle.gameObject.SetActive(true);
             bombParticle.Play();
+            meshRenderer.enabled = false;
+            fuseParticle.gameObject.SetActive(false);
         }
 
         protected override void OnCollisionEnter(Collision other)

@@ -30,7 +30,7 @@ namespace GoToYou.Domain.UseCases
         public override void End()
         {
             base.End();
-            SendUseCaseAtIndex((int) UseCaseNames.ShowResult);
+            SendUseCaseAtIndex((int) UseCaseNames.ShowTitle);
         }
     }
 }
