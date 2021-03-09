@@ -1297,7 +1297,7 @@ PrefabInstance:
     - target: {fileID: 7262122367246889325, guid: 053a922fe002bb7458a86c799dd1f041,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 053a922fe002bb7458a86c799dd1f041, type: 3}
@@ -8813,7 +8813,7 @@ PrefabInstance:
     - target: {fileID: 7262122367246889325, guid: 053a922fe002bb7458a86c799dd1f041,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 053a922fe002bb7458a86c799dd1f041, type: 3}
@@ -26670,6 +26670,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1221504250}
     m_Modifications:
+    - target: {fileID: 3077396234236104619, guid: 54497e057fa364c5aab28806166c66a7,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: f9c13c6ae09ab46ceb8c86c008664160, type: 2}
     - target: {fileID: 5172545539387716606, guid: 54497e057fa364c5aab28806166c66a7,
         type: 3}
       propertyPath: m_RootOrder
@@ -26750,6 +26755,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PersonInNeed
       objectReference: {fileID: 0}
+    - target: {fileID: 3158035378013910933, guid: e2b0b38476452477182025ab6a6e2d47,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 4c440571aa7f14f8a83e4f672883557c, type: 2}
     - target: {fileID: 6500605272826320014, guid: e2b0b38476452477182025ab6a6e2d47,
         type: 3}
       propertyPath: m_RootOrder
