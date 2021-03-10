@@ -29,6 +29,7 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
     {
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
+        
         LoadMainScene();
         StageMax = sceneNames.Length;
         // Bind();
@@ -58,12 +59,18 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
         });
     }
 
+    public void ReloadScene()
+    {
+        DOTween.KillAll();
+        sceneManager.UnloadAsyncScene(GetStageName(), () => { LoadMainScene(); });
+    }
+
     public void Retry()
     {
         DOTween.KillAll();
         sceneManager.UnloadAsyncScene(GetStageName(), () =>
         {
-            UI.Initialize();
+            // UI.Initialize();
             // sceneManager.LoadAsyncScene(GetStageName());
             LoadMainScene();
         });
@@ -74,6 +81,17 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
         return sceneNames[CurrentStageCount];
     }
 
+    public void DebugProgress()
+    {
+        var idx = PlayerPrefs.GetInt("Progress", 0);
+        PlayerPrefs.SetInt("Progress", idx + 1);
+        ReloadScene();
+    }
+
+    public void DeletePrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 
     int StageMax = 1;
     int CurrentStageCount = 0;

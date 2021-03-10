@@ -1,5 +1,6 @@
 using System;
 using Common.Data.Signals;
+using GoToYou.Data;
 using GoToYou.Data.Signals;
 using Nimitools.CA.Domain;
 using UniRx;
@@ -33,10 +34,17 @@ namespace GoToYou.Domain.UseCases
 
         public void GotoNextStage()
         {
+            var userEntity = repository.GetUserEntity();
+            userEntity.Progress++;
+            End();
+            GameRootManager.Instance.ReloadScene();
         }
 
         public void Retry()
         {
+            var userEntity = repository.GetUserEntity();
+            End();
+            GameRootManager.Instance.ReloadScene();
         }
     }
 }

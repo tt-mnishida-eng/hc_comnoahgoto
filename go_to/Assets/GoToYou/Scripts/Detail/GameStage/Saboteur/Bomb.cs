@@ -16,6 +16,15 @@ namespace GoToYou.Detail.GameStage.Saboteur
             bombParticle.gameObject.SetActive(false);
         }
 
+        public override void Reset()
+        {
+            base.Reset();
+            bombParticle.Stop();
+            bombParticle.gameObject.SetActive(false);
+            meshRenderer.enabled = false;
+            fuseParticle.gameObject.SetActive(false);
+        }
+
         void PlayBomb()
         {
             bombParticle.gameObject.SetActive(true);

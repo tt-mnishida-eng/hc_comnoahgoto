@@ -23,6 +23,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void LoadAsyncScene(string sceneName, Action onStart = null, Action<Scene> onComplete = null)
     {
+        if (SceneManager.GetActiveScene().name == "GameMain") return;
         IsLoading = true;
         CurrentMainSceneName = sceneName;
         StartCoroutine(DoSceneLoading(sceneName, onStart, (Scene scene) =>

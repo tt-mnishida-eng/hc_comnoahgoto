@@ -7,10 +7,11 @@ namespace GoToYou.Detail.DataStores
 {
     public class MainDataStore : DataStoreBase, IMainDataStore
     {
-        UserEntity userEntity = new UserEntity();
+        UserEntity userEntity;
 
         public void Initialize()
         {
+            userEntity = new UserEntity();
         }
 
         public UserEntity GetUserEntity()

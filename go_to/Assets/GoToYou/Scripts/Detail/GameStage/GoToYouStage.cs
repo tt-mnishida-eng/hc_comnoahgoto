@@ -14,6 +14,8 @@ namespace GoToYou.Detail.GameStage
 
         [SerializeField] AmidaMan amidaMan;
         public AmidaMan AmidaMan => amidaMan;
+        [SerializeField] PersonInNeed personInNeed;
+        public PersonInNeed PersonInNeed => personInNeed;
         FSM<GoToYouStage, GoToYouStates> fsm = new FSM<GoToYouStage, GoToYouStates>();
 
         [SerializeField] GameObject verticalLineContainer;
@@ -34,11 +36,12 @@ namespace GoToYou.Detail.GameStage
         Subject<Unit> failSubject = new Subject<Unit>();
         public IObservable<Unit> OnFail => failSubject;
 
-        Subject<Unit> finishInitializeSubject = new Subject<Unit>();
-        public IObservable<Unit> OnFinishInitialize => finishInitializeSubject;
+        Subject<Unit> finishSetProgressSubject = new Subject<Unit>();
+        public IObservable<Unit> OnFinishSetProgress => finishSetProgressSubject;
 
         void Start()
         {
+            Initialize();
         }
 
 
@@ -47,26 +50,12 @@ namespace GoToYou.Detail.GameStage
             fsm.Update();
         }
 
-        public void Initialize(int progress)
+        public void SetProgress(int progress)
         {
             stageContainer.SetProgress(progress);
+            amidaMan.FirstPositeion = stageContainer.FirstPosition;
             verticalLineContainer = stageContainer.CurrentVerticalLineContainer;
             horizonLineContainer = stageContainer.CurrentHorizonLineContainer;
-            var waitdrawState = new WaitDrawState(this);
-            fsm.AddState(GoToYouStates.WaitDraw, waitdrawState, true);
-
-            var drawState = new DrawState(this);
-            fsm.AddState(GoToYouStates.Draw, drawState, true);
-
-            var amidaState = new AmidaState(this);
-            fsm.AddState(GoToYouStates.Amida, amidaState, true);
-
-            var failureState = new FailureState(this);
-            fsm.AddState(GoToYouStates.Failure, failureState, true);
-
-            var successState = new SuccessState(this);
-            fsm.AddState(GoToYouStates.Success, successState, true);
-
             var vLines = verticalLineContainer.GetComponentsInChildren<AmidaLine>();
             foreach (var amidaLine in vLines)
             {
@@ -87,7 +76,31 @@ namespace GoToYou.Detail.GameStage
             }
 
             fsm.Send(GoToYouStates.WaitDraw);
-            finishInitializeSubject.OnNext(Unit.Default);
+            finishSetProgressSubject.OnNext(Unit.Default);
+        }
+
+        public void Reset()
+        {
+            amidaMan.Reset();
+            stageContainer.Reset();
+        }
+
+        void Initialize()
+        {
+            var waitdrawState = new WaitDrawState(this);
+            fsm.AddState(GoToYouStates.WaitDraw, waitdrawState, true);
+
+            var drawState = new DrawState(this);
+            fsm.AddState(GoToYouStates.Draw, drawState, true);
+
+            var amidaState = new AmidaState(this);
+            fsm.AddState(GoToYouStates.Amida, amidaState, true);
+
+            var failureState = new FailureState(this);
+            fsm.AddState(GoToYouStates.Failure, failureState, true);
+
+            var successState = new SuccessState(this);
+            fsm.AddState(GoToYouStates.Success, successState, true);
         }
 
         public AmidaLine AddHorizonLine(int verticalIndex)

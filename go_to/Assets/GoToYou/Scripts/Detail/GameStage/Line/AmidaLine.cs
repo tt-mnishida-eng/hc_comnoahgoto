@@ -1,7 +1,6 @@
 using System;
 using Common.Extension;
 using UniRx;
-using Unity.QuickSearch;
 using UnityEngine;
 
 namespace GoToYou.Detail.GameStage.Line

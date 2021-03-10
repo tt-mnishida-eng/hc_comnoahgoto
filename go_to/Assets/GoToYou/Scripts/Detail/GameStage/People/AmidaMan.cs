@@ -1,5 +1,6 @@
 using System;
 using Common.Actor;
+using DG.Tweening;
 using GoToYou.Detail.GameStage.Line;
 using UniRx;
 using UniRx.Triggers;
@@ -29,9 +30,22 @@ namespace GoToYou.Detail.GameStage.People
 
         float speed = 5f;
 
+        Vector3 firstPosition;
+
+        public Vector3 FirstPositeion
+        {
+            get => firstPosition;
+            set
+            {
+                firstPosition = value;
+                targetPosition = value;
+                transform.position = value;
+            }
+        }
+
         Vector3 targetPosition;
         [SerializeField] ParticleSystem bloodParticle;
-
+        [SerializeField] PersonInNeed personInNeed;
 
         Subject<Unit> successSubject = new Subject<Unit>();
         public IObservable<Unit> OnSuccess => successSubject;
@@ -49,6 +63,15 @@ namespace GoToYou.Detail.GameStage.People
             base.Start();
             animaNodeLayerMask = LayerMask.GetMask("AmidaNode");
             targetPosition = transform.position;
+            firstPosition = transform.position;
+            Idle();
+        }
+
+        public void Reset()
+        {
+            transform.position = firstPosition;
+            bloodParticle.Stop();
+            bloodParticle.gameObject.SetActive(false);
             Idle();
         }
 
@@ -70,7 +93,6 @@ namespace GoToYou.Detail.GameStage.People
             isSideMoving = false;
             if (currentNode.HorizonLineIndex < 0)
             {
-                successSubject.OnNext(Unit.Default);
                 Dance();
                 return;
             }
@@ -168,8 +190,11 @@ namespace GoToYou.Detail.GameStage.People
 
         public void Dance()
         {
+            successSubject.OnNext(Unit.Default);
             currentState = States.Dance;
-            Play(AmidaManAnimetorParameters.Dance);
+            var seq = DOTween.Sequence();
+            seq.Append(transform.DOMove(personInNeed.transform.position - Vector3.left, 0.5f));
+            seq.OnComplete(() => { Play(AmidaManAnimetorParameters.Dance); });
         }
 
         public void Walk()
@@ -180,6 +205,7 @@ namespace GoToYou.Detail.GameStage.People
 
         public void FallBack()
         {
+            failureSubject.OnNext(Unit.Default);
             bloodParticle.gameObject.SetActive(true);
             bloodParticle.Play();
             currentState = States.FallBack;

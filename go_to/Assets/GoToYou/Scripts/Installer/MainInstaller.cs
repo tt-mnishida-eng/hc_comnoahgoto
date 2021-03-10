@@ -22,6 +22,7 @@ namespace GoToYou.Installer
 
         public void Install()
         {
+            dataStore.Initialize();
             useCaseConductor.Initialize();
 
             var mainRepository = new MainRepository(dataStore);

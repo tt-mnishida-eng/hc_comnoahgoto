@@ -21,7 +21,7 @@ namespace GoToYou.Detail.Views
 
         public void Render(PreparationSignal signal)
         {
-            goToYouStage.Initialize(signal.Progress);
+            goToYouStage.SetProgress(signal.Progress);
         }
 
 

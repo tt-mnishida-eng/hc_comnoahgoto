@@ -10,7 +10,12 @@ namespace GoToYou.Data.Entity
 
 
         [SerializeField] int progress = 0;
-        public int Progress => this.progress;
+
+        public int Progress
+        {
+            get { return PlayerPrefs.GetInt("Progress", 0); }
+            set => PlayerPrefs.SetInt("Progress", value);
+        }
 
 
         public bool IsCurrentStageSuccess { get; set; } = false;

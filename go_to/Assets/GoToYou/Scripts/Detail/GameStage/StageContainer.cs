@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using GameAnalyticsSDK.Setup;
+using GoToYou.Detail.GameStage.Saboteur;
 using UnityEngine;
 
 namespace GoToYou.Detail.GameStage
@@ -7,14 +9,29 @@ namespace GoToYou.Detail.GameStage
     {
         [SerializeField] GameObject[] stages;
 
+        [SerializeField] Vector3 firstPosition;
+        public Vector3 FirstPosition => firstPosition;
         GameObject currentHorizonLineContainer;
         public GameObject CurrentHorizonLineContainer => currentHorizonLineContainer;
 
         GameObject currentVerticalLineContainer;
         public GameObject CurrentVerticalLineContainer => currentVerticalLineContainer;
 
+        List<ISaboteur> saboteurs = new List<ISaboteur>();
+
+        public void Reset()
+        {
+            foreach (var saboteur in saboteurs)
+            {
+                saboteur.Reset();
+            }
+        }
+
         public void SetProgress(int progress)
         {
+            currentVerticalLineContainer = null;
+            currentHorizonLineContainer = null;
+            saboteurs.Clear();
             foreach (var stage in stages)
             {
                 if (stage.activeSelf)
@@ -22,7 +39,8 @@ namespace GoToYou.Detail.GameStage
             }
 
             var len = stages.Length;
-            var stageIndex = progress % len;
+            // var stageIndex = progress % len;
+            var stageIndex = progress % 2;
             var rootTransform = stages[stageIndex].transform;
             rootTransform.gameObject.SetActive(true);
             foreach (Transform stageChild in rootTransform)
@@ -36,6 +54,17 @@ namespace GoToYou.Detail.GameStage
                 if (stageChild.CompareTag("VerticalLineContainer"))
                 {
                     currentVerticalLineContainer = stageChild.gameObject;
+                }
+
+                if (stageChild.CompareTag("FirstPosition"))
+                {
+                    firstPosition = stageChild.position;
+                }
+
+                var saboteur = stageChild.GetComponent<ISaboteur>();
+                if (saboteur != null)
+                {
+                    saboteurs.Add(saboteur);
                 }
             }
         }

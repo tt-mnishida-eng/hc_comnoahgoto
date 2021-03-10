@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &80023732
 RectTransform:
   m_ObjectHideFlags: 0
@@ -755,7 +755,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &439261905
 RectTransform:
   m_ObjectHideFlags: 0
@@ -819,7 +819,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 994344381}
-        m_MethodName: ChangeCatcherView
+        m_MethodName: DebugProgress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -882,7 +882,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &468198184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1452,7 +1452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &949677705
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1516,7 +1516,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 994344381}
-        m_MethodName: BackStage
+        m_MethodName: DeletePrefs
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1624,14 +1624,7 @@ MonoBehaviour:
   sceneManager: {fileID: 994344379}
   ui: {fileID: 1845514406}
   sceneNames:
-  - Stage_1
-  - Stage_2
-  - Stage_3
-  - Stage_4
-  - Stage_5
-  - Stage_6
-  - Stage_7
-  - Stage_8
+  - GameMain
   ProgressCount: 0
   stageName: {fileID: 0}
 --- !u!114 &994344382
@@ -1948,7 +1941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1236451985
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2020,7 +2013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1251483153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2489,7 +2482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1729740572
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2824,7 +2817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1780576396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3378,7 +3371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2113795287
 RectTransform:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ namespace GoToYou.Adapter.Presenters
 
         override protected void Bind()
         {
-            view.GoToYouStage.OnFinishInitialize.Subscribe(x => useCase.End());
+            view.GoToYouStage.OnFinishSetProgress.Subscribe(x => useCase.End());
             useCase.OnBegin.Subscribe(x => view.Begin());
             useCase.OnEnd.Subscribe(x => view.End());
             useCase.OnSendViewData.Subscribe(x => view.Render(x));
