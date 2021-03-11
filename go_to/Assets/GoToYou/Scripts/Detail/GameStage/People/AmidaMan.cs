@@ -19,8 +19,9 @@ namespace GoToYou.Detail.GameStage.People
         {
             Idle = 0,
             Walk,
+            Run,
             Dance,
-            FallBack
+            FallBack,
         }
 
         States currentState = States.Idle;
@@ -77,7 +78,7 @@ namespace GoToYou.Detail.GameStage.People
 
         void Update()
         {
-            if (currentState == States.Walk)
+            if (currentState == States.Run)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
                 if (Vector3.Distance(targetPosition, transform.position) < 0.01f)
@@ -132,7 +133,7 @@ namespace GoToYou.Detail.GameStage.People
                 // targetPosition.y = 0
                 transform.LookAt(targetPosition);
                 isSideMoving = true;
-                Walk();
+                Run();
                 return true;
             }
 
@@ -150,7 +151,7 @@ namespace GoToYou.Detail.GameStage.People
                 // targetPosition.y = 0;
                 transform.LookAt(targetPosition);
                 isSideMoving = true;
-                Walk();
+                Run();
                 return true;
             }
 
@@ -174,7 +175,7 @@ namespace GoToYou.Detail.GameStage.People
                 targetPosition = hit.collider.transform.position;
                 // targetPosition.y = 0;
                 transform.LookAt(targetPosition);
-                Walk();
+                Run();
                 return true;
             }
 
@@ -185,7 +186,7 @@ namespace GoToYou.Detail.GameStage.People
         public void Idle()
         {
             currentState = States.Idle;
-            Play(AmidaManAnimetorParameters.Idle);
+            Play(AmidaManAnimatorParameters.Idle);
         }
 
         public void Dance()
@@ -194,13 +195,19 @@ namespace GoToYou.Detail.GameStage.People
             currentState = States.Dance;
             var seq = DOTween.Sequence();
             seq.Append(transform.DOMove(personInNeed.transform.position - Vector3.left, 0.5f));
-            seq.OnComplete(() => { Play(AmidaManAnimetorParameters.Dance); });
+            seq.OnComplete(() => { Play(AmidaManAnimatorParameters.Dance); });
         }
 
         public void Walk()
         {
             currentState = States.Walk;
-            Play(AmidaManAnimetorParameters.Walk);
+            Play(AmidaManAnimatorParameters.Walk);
+        }
+
+        public void Run()
+        {
+            currentState = States.Run;
+            Play(AmidaManAnimatorParameters.Run);
         }
 
         public void FallBack()
@@ -209,7 +216,7 @@ namespace GoToYou.Detail.GameStage.People
             bloodParticle.gameObject.SetActive(true);
             bloodParticle.Play();
             currentState = States.FallBack;
-            Play(AmidaManAnimetorParameters.FallBack);
+            Play(AmidaManAnimatorParameters.FallBack);
         }
     }
 }

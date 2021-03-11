@@ -18,6 +18,8 @@ namespace GoToYou.Detail.GameStage.States
     public sealed class AmidaState : StateBase<GoToYouStage, GoToYouStates>
     {
         AmidaMan amidaMan;
+        PersonInNeed personInNeed;
+
         IDisposable successSubscribe;
         IDisposable failSubscribe;
 
@@ -35,12 +37,14 @@ namespace GoToYou.Detail.GameStage.States
             lineLayerMask = LayerMask.GetMask("AmidaLine");
 
             amidaMan = context.AmidaMan;
+            personInNeed = Context.PersonInNeed;
             currentCamera = Camera.main;
         }
 
         public override void Enter()
         {
             base.Enter();
+            personInNeed.BeQuiet();
             failSubscribe = amidaMan.OnFail.Subscribe(x => Context.Fail());
             successSubscribe = amidaMan.OnSuccess.Subscribe(x => Context.Success());
             Context.StartCoroutine(DoStartAmida());

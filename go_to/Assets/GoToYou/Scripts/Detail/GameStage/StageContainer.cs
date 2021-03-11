@@ -39,8 +39,8 @@ namespace GoToYou.Detail.GameStage
             }
 
             var len = stages.Length;
-            // var stageIndex = progress % len;
-            var stageIndex = progress % 2;
+            var stageIndex = progress % len;
+            // var stageIndex = 5;
             var rootTransform = stages[stageIndex].transform;
             rootTransform.gameObject.SetActive(true);
             foreach (Transform stageChild in rootTransform)

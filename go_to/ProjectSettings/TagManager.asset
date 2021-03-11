@@ -8,6 +8,7 @@ TagManager:
   - HorizonLineContainer
   - VerticalLineContainer
   - FirstPosition
+  - Saboteur
   layers:
   - Default
   - TransparentFX

@@ -23,7 +23,7 @@ namespace GoToYou.Detail.GameStage.States
         {
             base.Enter();
             personInNeed = Context.PersonInNeed;
-            personInNeed.Play(PersonInNeedAnimetorParameters.Dance);
+            personInNeed.Dance();
         }
 
         public override void Update()

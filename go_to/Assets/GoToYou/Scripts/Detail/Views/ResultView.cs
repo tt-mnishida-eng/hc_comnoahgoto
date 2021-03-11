@@ -30,7 +30,7 @@ namespace GoToYou.Detail.Views
 
         public void Begin()
         {
-            this.SetActive(true);
+            Observable.Timer(TimeSpan.FromSeconds(5)).Subscribe(_ => { this.SetActive(true); }).AddTo(this);
         }
 
         public void Render(ResultSignal resultSignal)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using GoToYou.Detail.GameStage.Line;
+using GoToYou.Detail.GameStage.People;
 using UniRx;
 
 namespace GoToYou.Detail.GameStage.States
@@ -20,6 +21,7 @@ namespace GoToYou.Detail.GameStage.States
         Vector3 mouseDownPosition;
         Camera currentCamera;
 
+        PersonInNeed personInNeed;
         IDisposable subscribe;
 
         public WaitDrawState(GoToYouStage context) : base(context)
@@ -31,6 +33,8 @@ namespace GoToYou.Detail.GameStage.States
         {
             base.Enter();
             currentCamera = Camera.main;
+            personInNeed = Context.PersonInNeed;
+            personInNeed.Say();
         }
 
         public override void Update()

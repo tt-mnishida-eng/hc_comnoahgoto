@@ -11,6 +11,10 @@ namespace GoToYou.Data.Entity
 
         [SerializeField] int progress = 0;
 
+        public UserEntity()
+        {
+        }
+
         public int Progress
         {
             get { return PlayerPrefs.GetInt("Progress", 0); }

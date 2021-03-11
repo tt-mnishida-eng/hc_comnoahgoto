@@ -27,9 +27,10 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
 
     protected override void Initialize()
     {
+        PlayerPrefs.SetInt("Progress", 0);
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
-        
+
         LoadMainScene();
         StageMax = sceneNames.Length;
         // Bind();
