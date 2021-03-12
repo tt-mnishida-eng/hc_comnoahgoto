@@ -673,10 +673,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 495d0d9a-f161-45fa-8317-501774fd1de7
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: "I\u2019ll go to you!"
+  organizationId: fty
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

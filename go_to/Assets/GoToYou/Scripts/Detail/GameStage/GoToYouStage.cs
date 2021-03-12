@@ -134,6 +134,7 @@ namespace GoToYou.Detail.GameStage
 
         public void WaitDraw()
         {
+            stageContainer.StartMove();
             fsm.Send(GoToYouStates.WaitDraw);
         }
 

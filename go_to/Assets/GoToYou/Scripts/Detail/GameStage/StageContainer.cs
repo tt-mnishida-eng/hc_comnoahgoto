@@ -18,6 +18,7 @@ namespace GoToYou.Detail.GameStage
         public GameObject CurrentVerticalLineContainer => currentVerticalLineContainer;
 
         List<ISaboteur> saboteurs = new List<ISaboteur>();
+        List<IMovable> movables = new List<IMovable>();
 
         public void Reset()
         {
@@ -32,6 +33,7 @@ namespace GoToYou.Detail.GameStage
             currentVerticalLineContainer = null;
             currentHorizonLineContainer = null;
             saboteurs.Clear();
+            movables.Clear();
             foreach (var stage in stages)
             {
                 if (stage.activeSelf)
@@ -65,8 +67,17 @@ namespace GoToYou.Detail.GameStage
                 {
                     saboteurs.Add(saboteur);
                     var movable = stageChild.GetComponent<IMovable>();
-                    movable?.StartMove();
+                    if (movable != null)
+                        movables.Add(movable);
                 }
+            }
+        }
+
+        public void StartMove()
+        {
+            foreach (var movable in movables)
+            {
+                movable.StartMove();
             }
         }
     }

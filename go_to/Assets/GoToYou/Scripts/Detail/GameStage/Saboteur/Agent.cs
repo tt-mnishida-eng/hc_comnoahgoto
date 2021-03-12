@@ -16,9 +16,13 @@ namespace GoToYou.Detail.GameStage.Saboteur
         [SerializeField] float duration = 2;
         [SerializeField] float idlingSeconds = 1;
         LoopMovingGear movingGear;
+        Vector3 defaultEularAngles;
 
         void Start()
         {
+            Play(AgentAnimatorParameters.LookUpIdle);
+            defaultEularAngles = transform.eulerAngles;
+            transform.eulerAngles = new Vector3(0, 180, 0);
         }
 
         void Idle()
@@ -33,6 +37,8 @@ namespace GoToYou.Detail.GameStage.Saboteur
 
         public void StartMove()
         {
+            Idle();
+            transform.eulerAngles = defaultEularAngles;
             var len = TargetPointsForMove.Length;
             if (len > 0)
             {

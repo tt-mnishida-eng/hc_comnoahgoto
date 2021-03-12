@@ -34,7 +34,7 @@ namespace GoToYou.Detail.Views
 
         public void End()
         {
-            goToYouStage.Available = true;
+            goToYouStage.Available = false;
             this.SetActive(false);
         }
 

@@ -213,7 +213,7 @@ namespace GoToYou.Detail.GameStage.People
         public void Idle()
         {
             currentState = States.Idle;
-            Play(AmidaManAnimatorParameters.Idle);
+            Play(AmidaManAnimatorParameters.LookUpIdle);
         }
 
         public void Dance()

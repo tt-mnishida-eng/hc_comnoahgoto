@@ -16,5 +16,6 @@ namespace GoToYou.Detail.GameStage.People
         public const string FallBack = "FallBack";
         public const string Dance = "Dance";
         public const string Run = "Run";
+        public const string LookUpIdle = "LookUpIdle";
     }
 }
