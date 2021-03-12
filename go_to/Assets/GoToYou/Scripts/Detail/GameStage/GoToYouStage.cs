@@ -72,7 +72,7 @@ namespace GoToYou.Detail.GameStage
             {
                 int lineIndex = verticalLines.Count;
                 amidaLine.Initialize(lineIndex, AmidaLineType.Vertical);
-                amidaLine.SetBeginNode(lineIndex, -1);
+                amidaLine.SetBeginNode(lineIndex, -2);
                 amidaLine.SetEndNode(lineIndex, -1);
                 verticalLines.Add(amidaLine);
             }

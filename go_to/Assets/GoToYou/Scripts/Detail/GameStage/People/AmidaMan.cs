@@ -97,7 +97,8 @@ namespace GoToYou.Detail.GameStage.People
             isSideMoving = false;
             if (currentNode.HorizonLineIndex < 0)
             {
-                Dance();
+                if (currentNode.HorizonLineIndex == -1)
+                    Dance();
                 return;
             }
 
@@ -130,18 +131,19 @@ namespace GoToYou.Detail.GameStage.People
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
                 currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
-                targetPosition = hit.collider.transform.position;
-                ray = new Ray(from + Vector3.up, direction);
-                if (Physics.Raycast(ray, out hit, distance - 1.2f, saboteurLayerMask) &&
-                    hit.collider.gameObject.GetComponent<IMovable>() != null)
+                if (!currentNode.CanCross)
+                    return false;
+                // ray = new Ray(from + Vector3.up, direction);
+                // if (Physics.Raycast(ray, out hit, distance - 1.2f, saboteurLayerMask) &&
+                //     hit.collider.gameObject.GetComponent<IMovable>() != null)
+                // {
+                //     Debug.Log(hit.collider.gameObject.name);
+                // }
+                // else
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                }
-                else
-                {
+                    targetPosition = hit.collider.transform.position;
                     currentNode.TriggerStartCross();
 
-                    // targetPosition.y = 0
                     transform.LookAt(targetPosition);
                     isSideMoving = true;
                     Run();
@@ -158,18 +160,20 @@ namespace GoToYou.Detail.GameStage.People
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
                 currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
-                targetPosition = hit.collider.transform.position;
-                ray = new Ray(from + Vector3.up, direction);
 
-                if (Physics.Raycast(ray, out hit, distance - 1.2f, saboteurLayerMask) &&
-                    hit.collider.gameObject.GetComponent<IMovable>() != null)
+                if (!currentNode.CanCross)
+                    return false;
+
+                // ray = new Ray(from + Vector3.up, direction);
+                // if (Physics.Raycast(ray, out hit, distance - 1.2f, saboteurLayerMask) &&
+                //     hit.collider.gameObject.GetComponent<IMovable>() != null)
+                // {
+                //     Debug.Log(hit.collider.gameObject.name);
+                // }
+                // else
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                }
-                else
-                {
+                    targetPosition = hit.collider.transform.position;
                     currentNode.TriggerStartCross();
-                    // targetPosition.y = 0;
                     transform.LookAt(targetPosition);
                     isSideMoving = true;
                     Run();
@@ -185,6 +189,7 @@ namespace GoToYou.Detail.GameStage.People
         {
             if (isSideMoving) return false;
             var from = transform.position;
+            from.z += 0.3f;
             var direction = Vector3.back;
             var ray = new Ray(from, direction);
             RaycastHit hit;
@@ -213,6 +218,7 @@ namespace GoToYou.Detail.GameStage.People
 
         public void Dance()
         {
+            Vibration.VibrateNope();
             successSubject.OnNext(Unit.Default);
             currentState = States.Dance;
             var seq = DOTween.Sequence();
@@ -234,6 +240,7 @@ namespace GoToYou.Detail.GameStage.People
 
         public void FallBack()
         {
+            Vibration.VibratePeek();
             failureSubject.OnNext(Unit.Default);
             bloodParticle.gameObject.SetActive(true);
             bloodParticle.Play();

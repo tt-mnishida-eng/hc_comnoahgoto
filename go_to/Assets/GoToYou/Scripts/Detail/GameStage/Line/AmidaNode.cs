@@ -23,6 +23,8 @@ namespace GoToYou.Detail.GameStage.Line
             set => horizonLineIndex = value;
         }
 
+        public bool CanCross { get; set; }
+
         [SerializeField] BoxCollider boxCollider;
         [SerializeField] MeshRenderer meshRenderer;
         public BoxCollider BoxCollider => boxCollider;

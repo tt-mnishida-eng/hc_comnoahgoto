@@ -110,6 +110,7 @@ namespace GoToYou.Detail.GameStage.States
                     var lineEndPos = currentAmidaLine.EndNode.transform.position;
                     var digPos = new Vector3(lineEndPos.x, 2, lineEndPos.z);
                     digParticle.transform.position = digPos;
+                    Vibration.VibratePop();
                 }
             }
             else if (Input.GetMouseButtonUp(0))
@@ -125,6 +126,7 @@ namespace GoToYou.Detail.GameStage.States
         {
             digParticle.Stop();
 
+            Vibration.VibrateNope();
             var diff = currentAmidaLine.transform.position - endlinePos;
             currentAmidaLine.Length = diff.x;
             currentAmidaLine = null;

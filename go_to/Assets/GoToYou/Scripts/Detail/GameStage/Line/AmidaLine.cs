@@ -37,6 +37,7 @@ namespace GoToYou.Detail.GameStage.Line
 
         [SerializeField] BoxCollider groundCollider;
 
+        [SerializeField] bool canCross = true;
         [SerializeField] AmidaNode beginNode;
         [SerializeField] AmidaNode endNode;
 
@@ -49,10 +50,23 @@ namespace GoToYou.Detail.GameStage.Line
             lineInfo.LineType = lineType;
             lineInfo.LineIndex = lineIndex;
             beginNode.OnEndCross.Subscribe(EndCross);
+            beginNode.CanCross = canCross;
 
             endNode.OnEndCross.Subscribe(EndCross);
+            endNode.CanCross = canCross;
+            if (!canCross)
+            {
+                Color clr = new Color();
+                if (ColorUtility.TryParseHtmlString("#9A9A9A", out clr))
+                {
+                    SetColor(clr);
+                }
+            }
+
             if (lineType == AmidaLineType.Horizon)
+            {
                 transform.localScale = new Vector3(1, 0.99f, 1);
+            }
         }
 
 

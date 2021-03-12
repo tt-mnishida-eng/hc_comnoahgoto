@@ -33,6 +33,7 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
 
         LoadMainScene();
         StageMax = sceneNames.Length;
+        Vibration.Init();
         // Bind();
     }
 
