@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 6703054669962841895}
   - component: {fileID: 3325879338869970475}
   - component: {fileID: 3325879338869970472}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Agent
   m_TagString: Saboteur
   m_Icon: {fileID: 0}

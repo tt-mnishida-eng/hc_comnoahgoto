@@ -23,6 +23,9 @@ namespace GoToYou.Detail.GameStage.States
 
         PersonInNeed personInNeed;
         IDisposable subscribe;
+        ParticleSystem digParticle;
+
+        bool isMouseDonw = false;
 
         public WaitDrawState(GoToYouStage context) : base(context)
         {
@@ -32,17 +35,23 @@ namespace GoToYou.Detail.GameStage.States
         public override void Enter()
         {
             base.Enter();
+            digParticle = Context.DigParticle;
+
             currentCamera = Camera.main;
             personInNeed = Context.PersonInNeed;
             personInNeed.Say();
+            isMouseDonw = false;
         }
 
         public override void Update()
         {
+            if (!Context.Available) return;
             base.Update();
+
             var inputMousePos = Input.mousePosition;
             if (Input.GetMouseButtonDown(0))
             {
+                isMouseDonw = true;
                 Ray ray = currentCamera.ScreenPointToRay(inputMousePos);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, rayDepth, lineLayerMask))
@@ -63,6 +72,8 @@ namespace GoToYou.Detail.GameStage.States
                             var vAmida = amidaInfo.AmidaLine;
                             currentAmidaLine.transform.position = new Vector3(vAmida.transform.position.x,
                                 vAmida.transform.position.y, hit.point.z);
+
+                            digParticle.Play();
                         }
                         else
                         {
@@ -74,6 +85,7 @@ namespace GoToYou.Detail.GameStage.States
             }
             else if (Input.GetMouseButton(0))
             {
+                if (!isMouseDonw) return;
                 if (currentAmidaLine != null)
                 {
                     var currentPosition = currentCamera.ScreenToWorldPoint(
@@ -82,18 +94,24 @@ namespace GoToYou.Detail.GameStage.States
 
                     currentAmidaLine.transform.localEulerAngles = new Vector3(0, 90, 0);
                     currentAmidaLine.Length = diff.x;
+                    var lineEndPos = currentAmidaLine.EndNode.transform.position;
+                    var digPos = new Vector3(lineEndPos.x, 2, lineEndPos.z);
+                    digParticle.transform.position = digPos;
                 }
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                isMouseDonw = false;
                 if (currentAmidaLine == null) return;
                 currentAmidaLine = null;
                 subscribe.Dispose();
+                digParticle.Stop();
             }
         }
 
         void FinishDraw(Vector3 endlinePos)
         {
+            digParticle.Stop();
             var diff = currentAmidaLine.transform.position - endlinePos;
             currentAmidaLine.Length = diff.x;
             currentAmidaLine = null;

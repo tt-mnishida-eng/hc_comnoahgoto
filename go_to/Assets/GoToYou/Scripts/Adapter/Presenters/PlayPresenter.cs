@@ -25,6 +25,7 @@ namespace GoToYou.Adapter.Presenters
             useCase.OnBegin.Subscribe(x => view.Begin());
 
             useCase.OnEnd.Subscribe(x => view.End());
+            view.OnRetry.Subscribe(x => useCase.Retry());
             view.GoToYouStage.OnSuccess.Subscribe(x => useCase.Success());
             view.GoToYouStage.OnFail.Subscribe(x => useCase.Fail());
         }

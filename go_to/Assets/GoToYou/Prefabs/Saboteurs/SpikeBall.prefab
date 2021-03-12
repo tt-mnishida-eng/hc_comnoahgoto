@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6866261272520826953}
   - component: {fileID: 7860040141960522457}
   - component: {fileID: 6703577850571679035}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpikeBall
-  m_TagString: Untagged
+  m_TagString: Saboteur
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -45,7 +45,6 @@ namespace GoToYou.Detail.GameStage
             rootTransform.gameObject.SetActive(true);
             foreach (Transform stageChild in rootTransform)
             {
-                Debug.Log(stageChild.tag);
                 if (stageChild.CompareTag("HorizonLineContainer"))
                 {
                     currentHorizonLineContainer = stageChild.gameObject;
@@ -65,6 +64,8 @@ namespace GoToYou.Detail.GameStage
                 if (saboteur != null)
                 {
                     saboteurs.Add(saboteur);
+                    var movable = stageChild.GetComponent<IMovable>();
+                    movable?.StartMove();
                 }
             }
         }

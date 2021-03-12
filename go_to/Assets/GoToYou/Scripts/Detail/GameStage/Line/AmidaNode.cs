@@ -24,7 +24,7 @@ namespace GoToYou.Detail.GameStage.Line
         }
 
         [SerializeField] BoxCollider boxCollider;
-
+        [SerializeField] MeshRenderer meshRenderer;
         public BoxCollider BoxCollider => boxCollider;
 
         Subject<AmidaNode> startCrossSubject = new Subject<AmidaNode>();
@@ -41,6 +41,11 @@ namespace GoToYou.Detail.GameStage.Line
         public void TriggerEndCross()
         {
             endCrossSubject.OnNext(this);
+        }
+
+        public void SetColor(Color color)
+        {
+            meshRenderer.material.color = color;
         }
     }
 }

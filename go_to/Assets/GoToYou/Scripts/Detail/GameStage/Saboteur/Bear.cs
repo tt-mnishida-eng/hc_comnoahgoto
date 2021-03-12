@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Common.Extension;
 using GoToYou.Detail.GameStage.People;
 using GoToYou.Detail.GameStage.Utility;
 using UniRx;
@@ -8,6 +10,7 @@ namespace GoToYou.Detail.GameStage.Saboteur
 {
     public class Bear : SaboteurBase, IMovable
     {
+        [SerializeField] string defaultAnimation;
         [SerializeField] protected Animator animator;
 
         [SerializeField] Transform[] TargetPointsForMove;
@@ -16,6 +19,24 @@ namespace GoToYou.Detail.GameStage.Saboteur
         LoopMovingGear movingGear;
 
         void Start()
+        {
+            if (string.IsNullOrEmpty(defaultAnimation))
+            {
+                animator.Play(defaultAnimation);
+            }
+        }
+
+        void Idle()
+        {
+            Play(AgentAnimatorParameters.Idle);
+        }
+
+        void Walk()
+        {
+            Play(AgentAnimatorParameters.Walk);
+        }
+
+        public void StartMove()
         {
             var len = TargetPointsForMove.Length;
             if (len > 0)
@@ -32,24 +53,10 @@ namespace GoToYou.Detail.GameStage.Saboteur
                 movingGear.OnIdle.Subscribe(x => Idle()).AddTo(this);
                 movingGear.OnMove.Subscribe(x => Walk()).AddTo(this);
 
+                movingGear.Drive();
 
-                StartMove();
+                // StartMove();
             }
-        }
-
-        void Idle()
-        {
-            Play(AgentAnimatorParameters.Idle);
-        }
-
-        void Walk()
-        {
-            Play(AgentAnimatorParameters.Walk);
-        }
-
-        public void StartMove()
-        {
-            movingGear.Drive();
         }
 
         public virtual void Play(string animationName)
@@ -64,6 +71,10 @@ namespace GoToYou.Detail.GameStage.Saboteur
             var pos = new Vector3(amidaMan.transform.position.x, transform.position.y, amidaMan.transform.position.z);
             transform.LookAt(pos);
             Play(AgentAnimatorParameters.Attack);
+            Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(_ => { Play(BearAnimatorParameters.Eat); })
+                .AddTo(this);
+
+
             if (movingGear != null) movingGear.Stop();
             return base.TouchAmidaMan(amidaMan, fromReactionSec);
         }

@@ -39,6 +39,17 @@ namespace GoToYou.Detail.GameStage
         Subject<Unit> finishSetProgressSubject = new Subject<Unit>();
         public IObservable<Unit> OnFinishSetProgress => finishSetProgressSubject;
 
+        [SerializeField] ParticleSystem digParticle;
+
+        public ParticleSystem DigParticle => digParticle;
+
+        public bool Available { get; set; } = false;
+
+        void Awake()
+        {
+            digParticle.Stop();
+        }
+
         void Start()
         {
             Initialize();
@@ -110,6 +121,12 @@ namespace GoToYou.Detail.GameStage
             amidaLine.Initialize(horizonLineIndex, AmidaLineType.Horizon);
             amidaLine.SetBeginNode(verticalIndex, horizonLineIndex);
             amidaLine.SetAmidaNodeCollidersEnabled(false);
+            Color clr;
+
+            if (ColorUtility.TryParseHtmlString("#FF9A31", out clr))
+            {
+                amidaLine.SetColor(clr);
+            }
 
             horizonLines.Add(amidaLine);
             return amidaLine;

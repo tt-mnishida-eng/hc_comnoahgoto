@@ -32,6 +32,8 @@ namespace GoToYou.Detail.GameStage.States
 
         IDisposable subscribe;
 
+        ParticleSystem digParticle;
+
         public AmidaState(GoToYouStage context) : base(context)
         {
             lineLayerMask = LayerMask.GetMask("AmidaLine");
@@ -44,6 +46,7 @@ namespace GoToYou.Detail.GameStage.States
         public override void Enter()
         {
             base.Enter();
+            digParticle = Context.DigParticle;
             personInNeed.BeQuiet();
             failSubscribe = amidaMan.OnFail.Subscribe(x => Context.Fail());
             successSubscribe = amidaMan.OnSuccess.Subscribe(x => Context.Success());
@@ -84,6 +87,8 @@ namespace GoToYou.Detail.GameStage.States
                             var vAmida = amidaInfo.AmidaLine;
                             currentAmidaLine.transform.position = new Vector3(vAmida.transform.position.x,
                                 vAmida.transform.position.y, hit.point.z);
+
+                            digParticle.Play();
                         }
                         else
                         {
@@ -100,9 +105,11 @@ namespace GoToYou.Detail.GameStage.States
                     var currentPosition = currentCamera.ScreenToWorldPoint(
                         new Vector3(inputMousePos.x, inputMousePos.z, rayDepth));
                     var diff = mouseDownPosition - currentPosition;
-
                     currentAmidaLine.transform.localEulerAngles = new Vector3(0, 90, 0);
                     currentAmidaLine.Length = diff.x;
+                    var lineEndPos = currentAmidaLine.EndNode.transform.position;
+                    var digPos = new Vector3(lineEndPos.x, 2, lineEndPos.z);
+                    digParticle.transform.position = digPos;
                 }
             }
             else if (Input.GetMouseButtonUp(0))
@@ -110,11 +117,14 @@ namespace GoToYou.Detail.GameStage.States
                 if (currentAmidaLine == null) return;
                 currentAmidaLine = null;
                 subscribe.Dispose();
+                digParticle.Stop();
             }
         }
 
         void FinishDraw(Vector3 endlinePos)
         {
+            digParticle.Stop();
+
             var diff = currentAmidaLine.transform.position - endlinePos;
             currentAmidaLine.Length = diff.x;
             currentAmidaLine = null;

@@ -31,9 +31,9 @@ GameObject:
   - component: {fileID: 7984402067898703589}
   - component: {fileID: 455166868398658442}
   - component: {fileID: 8650961329326442981}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tornado
-  m_TagString: Untagged
+  m_TagString: Saboteur
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

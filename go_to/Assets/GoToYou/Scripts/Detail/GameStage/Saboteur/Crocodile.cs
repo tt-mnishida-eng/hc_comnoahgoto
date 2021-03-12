@@ -17,6 +17,20 @@ namespace GoToYou.Detail.GameStage.Saboteur
 
         void Start()
         {
+        }
+
+        void Idle()
+        {
+            Play(AgentAnimatorParameters.Idle);
+        }
+
+        void Walk()
+        {
+            Play(AgentAnimatorParameters.Walk);
+        }
+
+        public void StartMove()
+        {
             var len = TargetPointsForMove.Length;
             if (len > 0)
             {
@@ -32,24 +46,10 @@ namespace GoToYou.Detail.GameStage.Saboteur
                 movingGear.OnIdle.Subscribe(x => Idle()).AddTo(this);
                 movingGear.OnMove.Subscribe(x => Walk()).AddTo(this);
 
+                movingGear.Drive();
 
-                StartMove();
+                // StartMove();
             }
-        }
-
-        void Idle()
-        {
-            Play(AgentAnimatorParameters.Idle);
-        }
-
-        void Walk()
-        {
-            Play(AgentAnimatorParameters.Walk);
-        }
-
-        public void StartMove()
-        {
-            movingGear.Drive();
         }
 
         public virtual void Play(string animationName)

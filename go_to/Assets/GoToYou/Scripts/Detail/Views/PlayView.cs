@@ -28,11 +28,13 @@ namespace GoToYou.Detail.Views
         public void Begin()
         {
             this.SetActive(true);
+            goToYouStage.Available = true;
             goToYouStage.WaitDraw();
         }
 
         public void End()
         {
+            goToYouStage.Available = true;
             this.SetActive(false);
         }
 

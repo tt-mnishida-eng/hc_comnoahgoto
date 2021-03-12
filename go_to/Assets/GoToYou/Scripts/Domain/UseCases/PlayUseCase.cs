@@ -38,5 +38,12 @@ namespace GoToYou.Domain.UseCases
             base.End();
             SendUseCaseAtIndex((int) UseCaseNames.ShowResult);
         }
+
+        public void Retry()
+        {
+            var userEntity = repository.GetUserEntity();
+            End();
+            GameRootManager.Instance.ReloadScene();
+        }
     }
 }

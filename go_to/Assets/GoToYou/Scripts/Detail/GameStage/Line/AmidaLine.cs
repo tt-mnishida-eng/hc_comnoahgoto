@@ -13,11 +13,21 @@ namespace GoToYou.Detail.GameStage.Line
 
         [SerializeField] Transform lineTransform;
 
+        [SerializeField] MeshRenderer meshRenderer;
+
         public float Length
         {
             get => lineTransform.localScale.z;
             set
             {
+                // if (LineType == AmidaLineType.Horizon)
+                // {
+                //     if (Length >= 0)
+                //         lineTransform.eulerAngles = new Vector3(0, 0, 0);
+                //     else
+                //         lineTransform.eulerAngles = new Vector3(0, 180, 0);
+                // }
+
                 lineTransform.localScale =
                     new Vector3(lineTransform.localScale.x, lineTransform.localScale.y, value);
                 endNode.transform.localPosition =
@@ -30,7 +40,7 @@ namespace GoToYou.Detail.GameStage.Line
         [SerializeField] AmidaNode beginNode;
         [SerializeField] AmidaNode endNode;
 
-
+        public AmidaNode EndNode => endNode;
         Subject<Vector3> drawFinishedSubject = new Subject<Vector3>();
         public IObservable<Vector3> OnDrawFinished => drawFinishedSubject;
 
@@ -41,6 +51,8 @@ namespace GoToYou.Detail.GameStage.Line
             beginNode.OnEndCross.Subscribe(EndCross);
 
             endNode.OnEndCross.Subscribe(EndCross);
+            if (lineType == AmidaLineType.Horizon)
+                transform.localScale = new Vector3(1, 0.99f, 1);
         }
 
 
@@ -53,6 +65,13 @@ namespace GoToYou.Detail.GameStage.Line
         {
             beginNode.VerticalLineIndex = verticalIndex;
             beginNode.HorizonLineIndex = horizonIndex;
+        }
+
+        public void SetColor(Color color)
+        {
+            meshRenderer.material.color = color;
+            beginNode.SetColor(color);
+            endNode.SetColor(color);
         }
 
         public void SetEndNode(int verticalIndex, int horizonIndex)

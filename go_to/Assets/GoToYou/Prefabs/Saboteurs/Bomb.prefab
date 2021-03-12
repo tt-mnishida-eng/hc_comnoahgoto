@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 4389910115343621967}
   - component: {fileID: -5461989845004964208}
   - component: {fileID: 1996517125541346690}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bomb
-  m_TagString: Untagged
+  m_TagString: Saboteur
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

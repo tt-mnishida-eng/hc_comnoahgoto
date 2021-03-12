@@ -2,6 +2,7 @@ using System;
 using Common.Actor;
 using DG.Tweening;
 using GoToYou.Detail.GameStage.Line;
+using GoToYou.Detail.GameStage.Saboteur;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace GoToYou.Detail.GameStage.People
 
         States currentState = States.Idle;
         int animaNodeLayerMask = 0;
+        int saboteurLayerMask = 0;
 
         int laneIndex = 0;
 
@@ -63,6 +65,7 @@ namespace GoToYou.Detail.GameStage.People
         {
             base.Start();
             animaNodeLayerMask = LayerMask.GetMask("AmidaNode");
+            saboteurLayerMask = LayerMask.GetMask("Saboteur");
             targetPosition = transform.position;
             firstPosition = transform.position;
             Idle();
@@ -127,14 +130,23 @@ namespace GoToYou.Detail.GameStage.People
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
                 currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
-                currentNode.TriggerStartCross();
-
                 targetPosition = hit.collider.transform.position;
-                // targetPosition.y = 0
-                transform.LookAt(targetPosition);
-                isSideMoving = true;
-                Run();
-                return true;
+                ray = new Ray(from + Vector3.up, direction);
+                if (Physics.Raycast(ray, out hit, distance - 1.2f, saboteurLayerMask) &&
+                    hit.collider.gameObject.GetComponent<IMovable>() != null)
+                {
+                    Debug.Log(hit.collider.gameObject.name);
+                }
+                else
+                {
+                    currentNode.TriggerStartCross();
+
+                    // targetPosition.y = 0
+                    transform.LookAt(targetPosition);
+                    isSideMoving = true;
+                    Run();
+                    return true;
+                }
             }
 
 
@@ -146,13 +158,23 @@ namespace GoToYou.Detail.GameStage.People
             if (Physics.Raycast(ray, out hit, distance, animaNodeLayerMask))
             {
                 currentNode = hit.collider.gameObject.GetComponent<AmidaNode>();
-                currentNode.TriggerStartCross();
                 targetPosition = hit.collider.transform.position;
-                // targetPosition.y = 0;
-                transform.LookAt(targetPosition);
-                isSideMoving = true;
-                Run();
-                return true;
+                ray = new Ray(from + Vector3.up, direction);
+
+                if (Physics.Raycast(ray, out hit, distance - 1.2f, saboteurLayerMask) &&
+                    hit.collider.gameObject.GetComponent<IMovable>() != null)
+                {
+                    Debug.Log(hit.collider.gameObject.name);
+                }
+                else
+                {
+                    currentNode.TriggerStartCross();
+                    // targetPosition.y = 0;
+                    transform.LookAt(targetPosition);
+                    isSideMoving = true;
+                    Run();
+                    return true;
+                }
             }
 
             Debug.DrawRay(from, direction * distance, Color.red, 3);
