@@ -3,6 +3,7 @@ using GoToYou.Adapter.Presenters;
 using GoToYou.Adapter.Repositories;
 using GoToYou.Data;
 using GoToYou.Detail.DataStores;
+using GoToYou.Detail.EventSender;
 using GoToYou.Detail.Views;
 using GoToYou.Domain.UseCases;
 using Nimitools.CA.Detail;
@@ -25,12 +26,14 @@ namespace GoToYou.Installer
             dataStore.Initialize();
             useCaseConductor.Initialize();
 
+            var eventSender = new UnityAnalyticEventSender();
             var mainRepository = new MainRepository(dataStore);
+            mainRepository.SetEventSender(eventSender);
 
-            var preparationUS = new PreparationUseCase();
-            preparationUS.SetRepository(mainRepository);
-            var preparationPresenter = new PrepatationPresenter(preparationUS, preparationView);
-            useCaseConductor.AddUseCase<UseCaseNames>(UseCaseNames.Preparation, preparationUS);
+            var preparationUs = new PreparationUseCase();
+            preparationUs.SetRepository(mainRepository);
+            var preparationPresenter = new PrepatationPresenter(preparationUs, preparationView);
+            useCaseConductor.AddUseCase<UseCaseNames>(UseCaseNames.Preparation, preparationUs);
 
             var titleUS = new ShowTitleUseCase();
             titleUS.SetRepository(mainRepository);

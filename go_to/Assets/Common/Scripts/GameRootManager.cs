@@ -27,7 +27,6 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
 
     protected override void Initialize()
     {
-        PlayerPrefs.SetInt("Progress", 0);
         QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 60;
 
@@ -90,9 +89,20 @@ public class GameRootManager : SingletonMonoBehaviour<GameRootManager>
         ReloadScene();
     }
 
+    public void DebugBackStage()
+    {
+        var idx = PlayerPrefs.GetInt("Progress", 0);
+        if (idx > 0)
+        {
+            PlayerPrefs.SetInt("Progress", idx - 1);
+            ReloadScene();
+        }
+    }
+
     public void DeletePrefs()
     {
         PlayerPrefs.DeleteAll();
+        ReloadScene();
     }
 
     int StageMax = 1;

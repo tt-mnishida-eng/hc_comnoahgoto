@@ -34,6 +34,7 @@ namespace GoToYou.Domain.UseCases
 
         public void GotoNextStage()
         {
+            repository.SendLevelEndEvent();
             var userEntity = repository.GetUserEntity();
             userEntity.Progress++;
             End();
@@ -42,7 +43,6 @@ namespace GoToYou.Domain.UseCases
 
         public void Retry()
         {
-            var userEntity = repository.GetUserEntity();
             End();
             GameRootManager.Instance.ReloadScene();
         }

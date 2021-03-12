@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using GoToYou.Adapter.Presenters.Interfaces;
 using Nimitools.CA.Adapter;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using Common.Extension;
+using UnityEngine.Analytics;
 
 namespace GoToYou.Detail.Views
 {
@@ -35,6 +37,7 @@ namespace GoToYou.Detail.Views
 
         void TapStart()
         {
+            
             tapToStartSubject.OnNext(Unit.Default);
         }
     }

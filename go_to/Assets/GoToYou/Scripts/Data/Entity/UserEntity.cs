@@ -21,6 +21,11 @@ namespace GoToYou.Data.Entity
             set => PlayerPrefs.SetInt("Progress", value);
         }
 
+        public int ChallengeProgress
+        {
+            get { return PlayerPrefs.GetInt("ChallengeProgress", -1); }
+            set => PlayerPrefs.SetInt("ChallengeProgress", value);
+        }
 
         public bool IsCurrentStageSuccess { get; set; } = false;
     }

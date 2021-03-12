@@ -9048,7 +9048,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &842972887
 Transform:
   m_ObjectHideFlags: 0
@@ -15736,7 +15736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1584823222
 Transform:
   m_ObjectHideFlags: 0
@@ -22068,6 +22068,11 @@ PrefabInstance:
       propertyPath: personInNeed
       value: 
       objectReference: {fileID: 847607610}
+    - target: {fileID: 4884393484018289956, guid: 54497e057fa364c5aab28806166c66a7,
+        type: 3}
+      propertyPath: defaultAnimationName
+      value: LookUpIdle
+      objectReference: {fileID: 0}
     - target: {fileID: 4884393484018289957, guid: 54497e057fa364c5aab28806166c66a7,
         type: 3}
       propertyPath: m_Name

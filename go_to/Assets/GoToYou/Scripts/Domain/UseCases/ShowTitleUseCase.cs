@@ -25,6 +25,8 @@ namespace GoToYou.Domain.UseCases
 
         public void TapStart()
         {
+            repository.SendLevelStartEvent();
+            repository.SendGameStartEvent();
             base.End();
             SendUseCaseAtIndex((int) UseCaseNames.Play);
         }
