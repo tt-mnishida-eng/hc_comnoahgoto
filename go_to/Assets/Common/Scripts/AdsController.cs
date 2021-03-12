@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Facebook.Unity;
+using GameAnalyticsSDK;
+using TT.OptOut;
 using UnityEngine;
-// using Facebook.Unity;
-// using GameAnalyticsSDK;
-// using TT.OptOut;
 
 public class AdsController : MonoBehaviour
 {
-    /*
     void Start()
     {
         InitializeFacebook();
@@ -46,5 +45,4 @@ public class AdsController : MonoBehaviour
         BaseTenjin instance = Tenjin.getInstance("T2WDDB18C9FSBMDZACZURGZ2ZUCYYQRZ");
         instance.Connect();
     }
-    */
 }
